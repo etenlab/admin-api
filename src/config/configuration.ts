@@ -7,7 +7,7 @@ export default () => ({
     secret: process.env.KEYCLOAK_CLIENT_SECRET,
   },
   database: {
-    host: process.env.DATABASE_HOST,
-    port: parseInt(process.env.DATABASE_PORT, 10) || 5432,
+    host: process.env.DB_HOST,
+    port: parseInt(process.env.DB_PORT, 10) || 5432,
   },
 });
