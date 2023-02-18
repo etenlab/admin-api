@@ -3,7 +3,7 @@ import {
   Column,
   Entity,
   PrimaryGeneratedColumn,
-  OneToOne,
+  ManyToOne,
   JoinColumn,
 } from 'typeorm';
 import { User } from 'src/users/users.model';
@@ -38,7 +38,7 @@ export class UserRole {
   role: number;
 
   @Field(() => User)
-  @OneToOne(() => User, (user) => user.user_id, {
+  @ManyToOne(() => User, (user) => user.user_id, {
     nullable: true,
     onDelete: 'CASCADE',
   })
@@ -48,8 +48,8 @@ export class UserRole {
   user: User;
 
   @Field(() => Organization)
-  @OneToOne(() => Organization, (organization) => organization.id, {
-    nullable: true,
+  @ManyToOne(() => Organization, (organization) => organization.id, {
+    nullable: false,
     onDelete: 'CASCADE',
   })
   @JoinColumn({
@@ -58,22 +58,22 @@ export class UserRole {
   organization: Organization;
 
   @Field(() => Application)
-  @OneToOne(() => Application, (application) => application.id, {
-    nullable: true,
-    onDelete: 'CASCADE',
-  })
-  @JoinColumn({
-    name: 'id',
-  })
-  application: Application;
-
-  @Field(() => Role)
-  @OneToOne(() => Role, (role) => role.id, {
+  @ManyToOne(() => Application, (application) => application.id, {
     nullable: false,
     onDelete: 'CASCADE',
   })
   @JoinColumn({
-    name: 'id',
+    name: 'app',
+  })
+  application: Application;
+
+  @Field(() => Role)
+  @ManyToOne(() => Role, (role) => role.id, {
+    nullable: true,
+    onDelete: 'CASCADE',
+  })
+  @JoinColumn({
+    name: 'role',
   })
   userRole: Role;
 }
